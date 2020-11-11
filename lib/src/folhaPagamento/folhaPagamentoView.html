@@ -1,0 +1,27 @@
+<div class="container">
+    <h1>Formulário do folha de pagamento</h1>
+    <form>
+        <div class="form-group">
+            <label for="diasTrabalhados">Dias Trabalhados&nbsp;*</label>
+            <input type="number" class="form-control" id="diasTrabalhados" required>
+        </div>
+        <div class="form-group">
+            <label for="horasExtras">Horas Extras&nbsp;*</label>
+            <input type="number" class="form-control" id="horasExtras" required>
+        </div>
+        <div class="form-group">
+            <label for="faltas">Faltas&nbsp;*</label>
+            <input type="number" class="form-control" id="faltas" required>
+        </div>
+        <div class="row">
+            <div class="col-auto">
+                <button type="submit" class="btn btn-primary">Calcular</button>
+            </div>
+            <small class="col text-right">*&nbsp;Required</small>
+            <button (click)="clear()" type="button" class="btn">
+                Limpar
+            </button>
+        </div>
+    </form>
+</div>
+

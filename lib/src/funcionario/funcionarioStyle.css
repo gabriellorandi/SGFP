@@ -1,0 +1,25 @@
+input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+}
+
+div {
+  padding-top: 5px
+}
+
+input[type=number] {
+  -moz-appearance:textfield;
+}
+
+h1 {
+  color: #31a5ff;
+}
+
+li:hover {
+  background-color: #EEEEEE;
+}
+
+li material-fab {
+  float: right;
+  vertical-align: middle;
+}
