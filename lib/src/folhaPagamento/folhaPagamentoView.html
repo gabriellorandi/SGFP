@@ -1,5 +1,4 @@
 <div class="container">
-    <h1>Formulário do folha de pagamento</h1>
     <form>
         <div class="form-group">
             <label for="diasTrabalhados">Dias Trabalhados&nbsp;*</label>
@@ -13,13 +12,17 @@
             <label for="faltas">Faltas&nbsp;*</label>
             <input type="number" class="form-control" id="faltas" required>
         </div>
+        <small class="col text-right">*&nbsp;Obrigatório</small>
+
         <div class="row">
             <div class="col-auto">
                 <button type="submit" class="btn btn-primary">Calcular</button>
             </div>
-            <small class="col text-right">*&nbsp;Required</small>
             <button (click)="clear()" type="button" class="btn">
                 Limpar
+            </button>
+            <button (click)="cancelar()" type="button" class="btn">
+                Cancelar
             </button>
         </div>
     </form>
