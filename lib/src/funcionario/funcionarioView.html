@@ -38,7 +38,8 @@
 
         <div class="row">
             <div class="col-auto">
-                <button type="submit" class="btn btn-primary">Adicionar</button>
+                <button *ngIf="controleIndex == null" type="submit" class="btn btn-primary">Adicionar</button>
+                <button *ngIf="controleIndex != null" type="submit" class="btn btn-primary">Salvar</button>
                 <button (click)="clear()" type="button" class="btn">Limpar</button>
             </div>
         </div>
@@ -59,6 +60,7 @@
     <table class="table">
         <thead>
         <tr>
+            <th scope="col">ID</th>
             <th scope="col">Nome</th>
             <th scope="col">CPF</th>
             <th scope="col">Ação</th>
@@ -66,6 +68,7 @@
         </thead>
         <tbody>
         <tr *ngFor="let funcionario of funcionarios; let i=index">
+            <td>{{funcionario.id}}</td>
             <td>{{funcionario.nome}}</td>
             <td>{{funcionario.cpf}}</td>
             <td>
@@ -74,9 +77,9 @@
                     <material-icon icon="calculate"></material-icon>
                 </material-fab>
 
-<!--                <material-fab mini (trigger)="edit(i)">-->
-<!--                    <material-icon icon="edit"></material-icon>-->
-<!--                </material-fab>-->
+                <material-fab mini (trigger)="edit(i)">
+                    <material-icon icon="edit"></material-icon>
+                </material-fab>
 
                 <material-fab mini (trigger)="remove(i)">
                     <material-icon icon="delete"></material-icon>

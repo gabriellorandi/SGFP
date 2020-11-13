@@ -32,6 +32,8 @@ class FuncionarioComponent implements OnInit {
 
   bool folhaPagamentoDisplay = false;
   bool funcionarioDisplay = false;
+  int id = 1;
+  int controleIndex = null;
 
   FuncionarioComponent(this.funcionarioService);
 
@@ -41,7 +43,17 @@ class FuncionarioComponent implements OnInit {
   }
 
   void onSubmit() {
-    funcionarios.add(funcionario);
+
+    if(controleIndex == null) {
+      funcionario.id = id++;
+      funcionarios.add(funcionario);
+
+    } else {
+      funcionarios.removeAt(controleIndex);
+      funcionarios.insert(controleIndex, funcionario);
+      controleIndex = null;
+    }
+
     funcionario = Funcionario();
     funcionarioDisplay = false;
   }
@@ -49,7 +61,9 @@ class FuncionarioComponent implements OnInit {
   void remove(int index) => funcionarios.removeAt(index);
 
   void edit(int index) {
-
+    funcionarioDisplay = true;
+    controleIndex = index;
+    funcionario = Funcionario.copia(funcionarios.elementAt(index));
   }
 
   void calcular(int index) {
