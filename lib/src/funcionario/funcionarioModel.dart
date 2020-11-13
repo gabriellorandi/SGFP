@@ -1,8 +1,12 @@
+import 'package:SGFP/src/folhaPagamento/folhaPagamentoModel.dart';
+
 class Funcionario {
 
   String nome, cargo;
 
   double rg, cpf, salario, extra;
+
+  FolhaPagamento folhaPagamento;
 
   Funcionario();
 

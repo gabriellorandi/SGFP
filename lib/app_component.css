@@ -1,4 +1,10 @@
 :host {
-    /* This is equivalent of the 'body' selector of a page. */
-    max-width: 600px;
+
+}
+
+h1 {
+    text-align: center;
+}
+h6 {
+    text-align: center;
 }

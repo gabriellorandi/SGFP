@@ -1,5 +1,5 @@
-<div class="container">
-    <h1>Formulário de funcionário</h1>
+<div class="container" *ngIf="funcionarioDisplay">
+    <h3>Formulário de funcionário</h3>
     <form (ngSubmit)="onSubmit()">
 
         <div class="row">
@@ -46,6 +46,9 @@
     </form>
 </div>
 
+<div *ngIf="folhaPagamentoDisplay">
+    <folhaPagamento></folhaPagamento>
+</div>
 
 <p style="padding-top: 50px" *ngIf="funcionarios.isEmpty">
     Lista vazia. Nenhum funcionário adicionado.
@@ -66,9 +69,14 @@
             <td>{{funcionario.nome}}</td>
             <td>{{funcionario.cpf}}</td>
             <td>
-                <material-fab mini (trigger)="edit(i)">
-                    <material-icon icon="edit"></material-icon>
+
+                <material-fab mini (trigger)="calcular(i)">
+                    <material-icon icon="calculate"></material-icon>
                 </material-fab>
+
+<!--                <material-fab mini (trigger)="edit(i)">-->
+<!--                    <material-icon icon="edit"></material-icon>-->
+<!--                </material-fab>-->
 
                 <material-fab mini (trigger)="remove(i)">
                     <material-icon icon="delete"></material-icon>
@@ -78,5 +86,11 @@
         </tbody>
     </table>
 
+</div>
+
+<div class="row" *ngIf="funcionarioDisplay == false ">
+    <div class="col-auto">
+        <button (click)="adicionarFuncionario" class="btn btn-primary">Adicionar</button>
+    </div>
 </div>
 

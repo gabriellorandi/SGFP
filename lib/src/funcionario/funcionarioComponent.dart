@@ -5,12 +5,14 @@ import 'package:SGFP/src/funcionario/funcionarioModel.dart';
 import 'package:SGFP/src/funcionario/funcionarioService.dart';
 import 'package:angular/angular.dart';
 import 'package:angular_components/angular_components.dart';
+import '../folhaPagamento/folhaPagamentoComponent.dart';
 
 @Component(
   selector: 'funcionario',
   styleUrls: ['funcionarioStyle.css'],
   templateUrl: 'funcionarioView.html',
   directives: [
+    FolhaPagamentoComponent,
     formDirectives,
     MaterialCheckboxComponent,
     MaterialFabComponent,
@@ -28,16 +30,20 @@ class FuncionarioComponent implements OnInit {
   List<Funcionario> funcionarios = [];
   Funcionario funcionario = Funcionario();
 
+  bool folhaPagamentoDisplay = false;
+  bool funcionarioDisplay = false;
+
   FuncionarioComponent(this.funcionarioService);
 
   @override
   Future<Null> ngOnInit() async {
-    funcionarios = await funcionarioService.getFuncioncarioList();
+    funcionarios = await funcionarioService.getFuncioncariosList();
   }
 
   void onSubmit() {
     funcionarios.add(funcionario);
     funcionario = Funcionario();
+    funcionarioDisplay = false;
   }
 
   void remove(int index) => funcionarios.removeAt(index);
@@ -46,12 +52,21 @@ class FuncionarioComponent implements OnInit {
 
   }
 
+  void calcular(int index) {
+    folhaPagamentoDisplay = true;
+  }
+
   void clear() {
     funcionario.nome = '';
     funcionario.cargo = '';
-    funcionario.cpf = 0;
-    funcionario.rg = 0;
-    funcionario.salario = 0;
+    funcionario.cpf = null;
+    funcionario.rg = null;
+    funcionario.salario = null;
+  }
+
+  void adicionarFuncionario() {
+    funcionarioDisplay = true;
+    folhaPagamentoDisplay = false;
   }
 
 }

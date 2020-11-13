@@ -5,7 +5,9 @@ import 'package:angular/core.dart';
 
 @Injectable()
 class FuncionarioService {
-  List<Funcionario> mockTodoList = <Funcionario>[];
 
-  Future<List<Funcionario>> getFuncioncarioList() async => mockTodoList;
+  List<Funcionario> funcionarios = <Funcionario>[];
+
+  Future<List<Funcionario>> getFuncioncariosList() async => funcionarios;
+
 }
