@@ -21,21 +21,21 @@ class FuncionarioController {
   handle() async {
     switch (this._reqBody.request.method) {
       case 'GET':
-        funcionarios = await FuncionarioService.getFuncioncarios();
+        funcionarios = await funcionarioService.getFuncioncarios();
         _reqBody.request.response.write(funcionarios);
         break;
       case 'POST':
-        funcionario = await FuncionarioService.addFuncionario( _reqBody.body  );
+        funcionario = await funcionarioService.addFuncionario( _reqBody.body  );
         _reqBody.request.response.write(funcionario);
         break;
       case 'PATCH':
         var id = int.parse(_reqBody.request.uri.queryParameters['id']);
-        funcionario = await FuncionarioService.updateFuncionario( json.decode(_reqBody.body), id  );
+        funcionario = await funcionarioService.updateFuncionario( _reqBody.body, id  );
         _reqBody.request.response.write(funcionario);
         break;
       case 'DELETE':
         var id = int.parse(_reqBody.request.uri.queryParameters['id']);
-        funcionario = await FuncionarioService.deleteFuncionario( id );
+        funcionario = await funcionarioService.deleteFuncionario( id );
         _reqBody.request.response.write(funcionario);
         break;
       default:

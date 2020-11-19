@@ -1,5 +1,7 @@
 import 'dart:io';
 
+import 'package:SGFP/src/folhaPagamento/folhaPagamentoController.dart';
+import 'package:SGFP/src/folhaPagamento/folhaPagamentoModel.dart';
 import 'package:SGFP/src/funcionario/funcionarioController.dart';
 import 'package:http_server/http_server.dart';
 
@@ -24,6 +26,9 @@ void main() async {
         break;
       case '/funcionario':
         FuncionarioController(reqBody);
+        break;
+      case '/folhaPagamento':
+        FolhaPagamentoController(reqBody);
         break;
       default:
         response

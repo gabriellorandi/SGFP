@@ -4,17 +4,17 @@ import 'package:SGFP/src/funcionario/funcionarioModel.dart';
 
 class FuncionarioService {
 
-  static List<Funcionario> funcionarios = <Funcionario>[];
+  List<Funcionario> funcionarios = <Funcionario>[];
 
-  static Future<List<Funcionario>> getFuncioncarios() async => funcionarios;
+  Future<List<Funcionario>> getFuncioncarios() async => funcionarios;
 
-  static Future<Funcionario>  addFuncionario(var json ) async {
+  Future<Funcionario>  addFuncionario(var json ) async {
     Funcionario funcionario = Funcionario.fromJson(json);
     funcionarios.add( funcionario );
     return funcionario;
   }
 
-  static Future<Funcionario>  deleteFuncionario(int id) async {
+  Future<Funcionario>  deleteFuncionario(int id) async {
     Funcionario funcionario = await findById(id);
 
     if(funcionario != null) {
@@ -23,7 +23,9 @@ class FuncionarioService {
     return funcionario;
   }
 
-  static Future<Funcionario> updateFuncionario(Funcionario funcionario, int id) async {
+  Future<Funcionario> updateFuncionario(var json, int id) async {
+
+    Funcionario funcionario = Funcionario.fromJson(json);
 
     Funcionario update = await findById(id);
 
@@ -35,7 +37,7 @@ class FuncionarioService {
 
   }
 
-  static Future<Funcionario>  findById(int id) async {
+  Future<Funcionario>  findById(int id) async {
     for(Funcionario f in funcionarios) {
       if(f.id == id) {
         return f;
