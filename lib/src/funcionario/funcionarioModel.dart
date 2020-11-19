@@ -38,6 +38,6 @@ class Funcionario {
 
   @override
   String toString() {
-    return 'Nome: $nome - cpf: $cpf';
+    return 'Funcionario{id: $id, cpf: $cpf, nome: $nome, cargo: $cargo, rg: $rg, salario: $salario, extra: $extra}';
   }
 }
