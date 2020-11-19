@@ -2,11 +2,11 @@ import 'package:SGFP/src/folhaPagamento/folhaPagamentoModel.dart';
 
 class Funcionario {
 
-  int id;
+  int id, cpf;
 
   String nome, cargo;
 
-  double rg, cpf, salario, extra;
+  double rg, salario, extra;
 
   FolhaPagamento folhaPagamento;
 
@@ -23,6 +23,18 @@ class Funcionario {
   }
 
   Funcionario.build(this.id,this.nome,this.cargo,this.rg,this.cpf,this.salario, this.extra);
+
+  factory Funcionario.fromJson(var json){
+    return Funcionario.build(
+        json['id'] as int,
+        json['nome'] as String,
+        json['cargo'] as String,
+        json['rg'] as double,
+        json['cpf'] as int,
+        json['salario'] as double,
+        json['extra'] as double,
+    );
+  }
 
   @override
   String toString() {
