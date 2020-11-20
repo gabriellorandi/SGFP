@@ -1,13 +1,34 @@
-
+import 'package:SGFP/src/folhaPagamento/folhaPagamentoModel.dart';
+import 'package:mongo_dart/mongo_dart.dart';
 
 class FolhaPagamentoService {
 
-  getFolhaPagamento(int idFuncionario) {}
+  DbCollection funcionarioDB;
 
-  addFolhaPagamento(body, int idFuncionario) {}
+  FolhaPagamentoService(db) {
+    funcionarioDB = db.collection('funcionario');
+  }
 
-  updateFolhaPagamento(body, int id) {}
+  Future<FolhaPagamento> getFolhaPagamento(String idFuncionario) async {
+    var funcionario = await funcionarioDB.findOne(where.id(ObjectId.parse(idFuncionario)) );
+     return FolhaPagamento.fromJson( funcionario['folhaPagamento'] );
+  }
 
-  deleteFolhaPagamento(int id) {}
+  Future<FolhaPagamento> updateFolhaPagamento(body, String idFuncionario) async {
+    var funcionario = await funcionarioDB
+        .update(where.id(ObjectId.parse(idFuncionario)),modify.set('folhaPagamento', body));
+    return FolhaPagamento.fromJson(funcionario['folhaPagamento'] );
+
+  }
+
+  Future<FolhaPagamento> deleteFolhaPagamento(String idFuncionario) async {
+    var funcionario = await funcionarioDB
+        .update(where.id(ObjectId.parse(idFuncionario)),modify.set('folhaPagamento', null));
+    return FolhaPagamento.fromJson(funcionario['folhaPagamento']);
+  }
+
+  calcularFolhaPagamento(String idFuncionario) {
+
+  }
 
 }

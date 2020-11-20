@@ -1,49 +1,48 @@
 import 'dart:async';
 
 import 'package:SGFP/src/funcionario/funcionarioModel.dart';
+import 'package:mongo_dart/mongo_dart.dart';
 
 class FuncionarioService {
 
-  List<Funcionario> funcionarios = <Funcionario>[];
+  DbCollection funcionarioDB;
 
-  Future<List<Funcionario>> getFuncioncarios() async => funcionarios;
+  FuncionarioService(db) {
+    funcionarioDB = db.collection('funcionario');
+  }
+
+  Future<List<Funcionario>> getFuncioncarios() 
+    async => await funcionarioDB.find().map((f) => Funcionario.fromJson(f) ).toList();
 
   Future<Funcionario>  addFuncionario(var json ) async {
     Funcionario funcionario = Funcionario.fromJson(json);
-    funcionarios.add( funcionario );
+    await funcionarioDB.save( json );
     return funcionario;
   }
 
-  Future<Funcionario>  deleteFuncionario(int id) async {
+  Future<Funcionario>  deleteFuncionario(String id) async {
     Funcionario funcionario = await findById(id);
 
     if(funcionario != null) {
-      funcionarios.remove(funcionario);
+      await funcionarioDB.remove(where.id(ObjectId.parse(id)));
     }
     return funcionario;
   }
 
-  Future<Funcionario> updateFuncionario(var json, int id) async {
-
-    Funcionario funcionario = Funcionario.fromJson(json);
+  Future<Funcionario> updateFuncionario(var json, String id) async {
 
     Funcionario update = await findById(id);
 
     if(update != null) {
-      update = funcionario;
+      update =  Funcionario.fromJson( await funcionarioDB.update( where.id(ObjectId.parse(id)), json ) );
     }
 
-    return funcionario;
+    return update;
 
   }
 
-  Future<Funcionario>  findById(int id) async {
-    for(Funcionario f in funcionarios) {
-      if(f.id == id) {
-        return f;
-      }
-    }
-    return null;
+  Future<Funcionario>  findById(String id) async {
+    return Funcionario.fromJson( await funcionarioDB.findOne(where.id(ObjectId.parse(id)) ) );
   }
 
 }

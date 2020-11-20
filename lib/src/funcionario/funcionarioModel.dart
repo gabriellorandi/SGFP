@@ -1,8 +1,11 @@
 import 'package:SGFP/src/folhaPagamento/folhaPagamentoModel.dart';
+import 'package:mongo_dart/mongo_dart.dart';
 
 class Funcionario {
 
-  int id, cpf;
+  ObjectId _id;
+
+  int cpf;
 
   String nome, cargo;
 
@@ -13,7 +16,7 @@ class Funcionario {
   Funcionario();
 
   Funcionario.copia(Funcionario f) {
-    this.id = f.id;
+    this._id = f._id;
     this.nome = f.nome;
     this.cargo = f.cargo;
     this.rg = f.rg;
@@ -22,11 +25,11 @@ class Funcionario {
     this.extra = f.extra;
   }
 
-  Funcionario.build(this.id,this.nome,this.cargo,this.rg,this.cpf,this.salario, this.extra);
+  Funcionario.build(this._id,this.nome,this.cargo,this.rg,this.cpf,this.salario, this.extra);
 
   factory Funcionario.fromJson(var json){
     return Funcionario.build(
-        json['id'] as int,
+        json['_id'] as ObjectId,
         json['nome'] as String,
         json['cargo'] as String,
         json['rg'] as double,
@@ -38,6 +41,6 @@ class Funcionario {
 
   @override
   String toString() {
-    return 'Funcionario{id: $id, cpf: $cpf, nome: $nome, cargo: $cargo, rg: $rg, salario: $salario, extra: $extra}';
+    return 'Funcionario{id: $_id, cpf: $cpf, nome: $nome, cargo: $cargo, rg: $rg, salario: $salario, extra: $extra}';
   }
 }
