@@ -1,5 +1,6 @@
 import 'package:SGFP/src/folhaPagamento/folhaPagamentoModel.dart';
 import 'package:SGFP/src/folhaPagamento/folhaPagamentoService.dart';
+import 'package:SGFP/src/util/ErrorHandler.dart';
 import 'package:http_server/http_server.dart';
 
 
@@ -11,17 +12,17 @@ class FolhaPagamentoController  {
 
   HttpRequestBody _reqBody;
 
-  FolhaPagamentoController(this._reqBody,db){
+  FolhaPagamentoController(this._reqBody,db) {
     folhaPagamentoService = new FolhaPagamentoService(db);
-    handle();
+    handle().catchError( (e) => print(e) );
   }
 
   FolhaPagamentoController.calcular(this._reqBody,db){
     folhaPagamentoService = new FolhaPagamentoService(db);
-    handleCalcular();
+    handleCalcular().catchError( (e) => print(e) );
   }
 
-  handleCalcular() async {
+  Future handleCalcular() async {
     switch (this._reqBody.request.method) {
       case 'GET':
         String idFuncionario = _reqBody.request.uri.queryParameters['idFuncionario'];
@@ -35,26 +36,58 @@ class FolhaPagamentoController  {
     await _reqBody.request.response.close();
   }
 
-  handle() async {
+  Future handle() async {
     switch (this._reqBody.request.method) {
       case 'GET':
         String idFuncionario = _reqBody.request.uri.queryParameters['idFuncionario'];
-        folhaPagamento = await folhaPagamentoService.getFolhaPagamento(idFuncionario);
+
+        if(idFuncionario == null || idFuncionario.isEmpty ) {
+          ErrorHandler.onError("idFuncionario inválido.",_reqBody);
+          throw FormatException("idFuncionario inválido.");
+        }
+
+        folhaPagamento = await folhaPagamentoService.getFolhaPagamento(idFuncionario)
+            .catchError(ErrorHandler.onError((e) => e,_reqBody))
+            .whenComplete(() => close(_reqBody));
         _reqBody.request.response.write(folhaPagamento);
         break;
       case 'POST':
         String idFuncionario = _reqBody.request.uri.queryParameters['idFuncionario'];
-        folhaPagamento = await folhaPagamentoService.updateFolhaPagamento( _reqBody.body, idFuncionario  );
+
+        if(idFuncionario == null || idFuncionario.isEmpty ) {
+            ErrorHandler.onError("idFuncionario inválido.",_reqBody);
+            throw FormatException("idFuncionario inválido.");
+        }
+
+        folhaPagamento = await folhaPagamentoService.updateFolhaPagamento( _reqBody.body, idFuncionario  )
+            .catchError(ErrorHandler.onError((e) => e,_reqBody))
+            .whenComplete(() => close(_reqBody));
         _reqBody.request.response.write(folhaPagamento);
         break;
       case 'PATCH':
         String idFuncionario = _reqBody.request.uri.queryParameters['idFuncionario'];
-        folhaPagamento = await folhaPagamentoService.updateFolhaPagamento( _reqBody.body, idFuncionario  );
+
+        if(idFuncionario == null || idFuncionario.isEmpty ) {
+          ErrorHandler.onError("idFuncionario inválido.",_reqBody);
+          throw FormatException("idFuncionario inválido.");
+        }
+
+        folhaPagamento = await folhaPagamentoService.updateFolhaPagamento( _reqBody.body, idFuncionario  )
+            .catchError(ErrorHandler.onError((e) => e,_reqBody))
+            .whenComplete(() => close(_reqBody));
         _reqBody.request.response.write(folhaPagamento);
         break;
       case 'DELETE':
         String idFuncionario = _reqBody.request.uri.queryParameters['idFuncionario'];
-        folhaPagamento = await folhaPagamentoService.deleteFolhaPagamento( idFuncionario );
+
+        if(idFuncionario == null || idFuncionario.isEmpty ) {
+          ErrorHandler.onError("idFuncionario inválido.",_reqBody);
+          throw FormatException("idFuncionario inválido.");
+        }
+
+        folhaPagamento = await folhaPagamentoService.deleteFolhaPagamento( idFuncionario )
+            .catchError(ErrorHandler.onError((e) => e,_reqBody))
+            .whenComplete(() => close(_reqBody));
         _reqBody.request.response.write(folhaPagamento);
         break;
       default:
@@ -64,5 +97,7 @@ class FolhaPagamentoController  {
     await _reqBody.request.response.close();
   }
 
-
+  close(_reqBody) async {
+    await _reqBody.request.response.close();
+  }
 }
