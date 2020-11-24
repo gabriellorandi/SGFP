@@ -22,8 +22,11 @@ O Sistema de Gerenciamento da Folha de Pagamento (SGFP) é uma API Web focado ex
  ```
 
 <b>Instale Dart SDK <b><br/>
-<code> sudo apt-get update </code> <br/>
-<code> sudo apt-get install dart </code> <br/>
+ 
+ ```shell
+ sudo apt-get update
+ sudo apt-get install dart
+ ```
 
 ## Licença
 
