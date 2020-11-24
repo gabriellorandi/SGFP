@@ -10,7 +10,7 @@ O Sistema de Gerenciamento da Folha de Pagamento (SGFP) é uma API Web focado ex
 
 ## Install
 
-###LInux
+### Linux
 
 <b>Instale usando apt-get (única vez)<b><br/>
 <code> sudo apt-get update </code> <br/>
