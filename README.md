@@ -2,6 +2,10 @@
 
 O Sistema de Gerenciamento da Folha de Pagamento (SGFP) é uma API Web focado exclusivamente no gerenciamento e automação da folha de pagamento dos funcionários com base na quantidade de dias trabalhados.
 
+## Objetivo
+
+Demonstrar os conhecimentos de Dart no banco de dados Mongo, utilizando conhecimentos como Clean Code e MVC. 
+
 ## Tecnológias utilizadas
 
 - [Dart](https://dart.dev/) 
@@ -27,6 +31,19 @@ O Sistema de Gerenciamento da Folha de Pagamento (SGFP) é uma API Web focado ex
  sudo apt-get update
  sudo apt-get install dart
  ```
+ 
+## Exemplo de código
+
+```Dart
+  Future<List<Funcionario>> getFuncioncarios() 
+    async => await funcionarioDB.find().map((f) => Funcionario.fromJson(f) ).toList();
+
+  Future<Funcionario>  addFuncionario(var json ) async {
+    Funcionario funcionario = Funcionario.fromJson(json);
+    await funcionarioDB.save( json );
+    return funcionario;
+  }
+```
 
 ## Licença
 
