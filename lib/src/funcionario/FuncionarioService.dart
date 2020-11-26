@@ -1,6 +1,6 @@
 import 'dart:async';
 
-import 'package:SGFP/src/funcionario/funcionarioModel.dart';
+import 'package:SGFP/src/funcionario/Funcionario.dart';
 import 'package:mongo_dart/mongo_dart.dart';
 
 class FuncionarioService {
@@ -11,7 +11,7 @@ class FuncionarioService {
     funcionarioDB = db.collection('funcionario');
   }
 
-  Future<List<Funcionario>> getFuncioncarios() 
+  Future<List<Funcionario>> getFuncionarios() 
     async => await funcionarioDB.find().map((f) => Funcionario.fromJson(f) ).toList();
 
   Future<Funcionario>  addFuncionario(var json ) async {

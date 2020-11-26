@@ -14,12 +14,6 @@ class FolhaPagamentoController  {
 
   FolhaPagamentoController(this._reqBody,db) {
     folhaPagamentoService = new FolhaPagamentoService(db);
-    handle().catchError( (e) => print(e) );
-  }
-
-  FolhaPagamentoController.calcular(this._reqBody,db){
-    folhaPagamentoService = new FolhaPagamentoService(db);
-    handleCalcular().catchError( (e) => print(e) );
   }
 
   Future handleCalcular() async {
