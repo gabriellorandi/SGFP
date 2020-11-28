@@ -37,6 +37,18 @@ class Funcionario {
     );
   }
 
+  Map<String, dynamic> toJson() {
+    return {
+      'id': this._id,
+      'name': this.name,
+      'position': this.position,
+      'rg': this.rg,
+      'cpf': this.cpf,
+      'salary': this.salary,
+      'overtimeValue': this.overtimeValue,
+    };
+  }
+
   @override
   String toString() {
     return 'Employee{id: $_id, cpf: $cpf, nome: $name, cargo: $position, rg: $rg, salario: $salary, extra: $overtimeValue}';
