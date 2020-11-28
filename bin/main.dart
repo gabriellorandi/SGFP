@@ -5,17 +5,16 @@ import 'package:SGFP/src/funcionario/FuncionarioController.dart';
 import 'package:http_server/http_server.dart';
 import 'package:mongo_dart/mongo_dart.dart';
 
-String _host = InternetAddress.loopbackIPv4.host;
-
 void main() async {
 
+  String host = '0.0.0.0';
   int port = 8085;
 
-  var server = await HttpServer.bind(_host, port);
+  var server = await HttpServer.bind(host, port);
 
-  print('Servidor rodando em  http://$_host:$port');
+  print('Servidor rodando em  http://$host:$port');
 
-  Db db = Db('mongodb://localhost:27017/test2');
+  Db db = Db('mongodb://localhost:27017/test');
   await db.open();
   print('Conectado no Banco de Dados');
 
