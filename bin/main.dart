@@ -22,6 +22,9 @@ void main() async {
     var request = reqBody.request;
     var response = request.response;
 
+    request.response.headers.add('Access-Control-Allow-Origin', '*');
+    request.response.headers.add('Access-Control-Allow-Methods', 'POST,GET,DELETE,PUT,OPTIONS');
+
     FuncionarioController funcionarioController;
     FolhaPagamentoController folhaPagamentoController;
 
