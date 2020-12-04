@@ -21,13 +21,13 @@ class FuncionarioController {
     switch (this._reqBody.request.method) {
       case 'GET':
         employees = await employeeService.getFuncionarios();
-        _reqBody.request.response.write(employees);
+        _reqBody.request.response.write( employees.map((f) => f.toJson()) );
         await close(_reqBody);
         break;
       case 'POST':
         employee = await employeeService.addFuncionario( _reqBody.body  )
             .catchError( (e) => ErrorHandler.onError( e,_reqBody));
-        _reqBody.request.response.write(employee);
+        _reqBody.request.response.write(employee.toJson());
         await close(_reqBody);
         break;
       case 'PATCH':
@@ -40,7 +40,7 @@ class FuncionarioController {
 
         employee = await employeeService.updateFuncionario( _reqBody.body, id  )
             .catchError( (e) => ErrorHandler.onError( e,_reqBody));
-        _reqBody.request.response.write(employee);
+        _reqBody.request.response.write(employee.toJson());
         await close(_reqBody);
         break;
       case 'DELETE':
@@ -53,7 +53,7 @@ class FuncionarioController {
 
         employee = await employeeService.deleteFuncionario( id )
             .catchError( (e) => ErrorHandler.onError( e,_reqBody));
-        _reqBody.request.response.write(employee);
+        _reqBody.request.response.write(employee.toJson());
         await close(_reqBody);
         break;
       default:
