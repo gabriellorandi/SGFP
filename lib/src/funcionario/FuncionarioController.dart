@@ -3,6 +3,7 @@ import 'package:SGFP/src/funcionario/Funcionario.dart';
 import 'package:SGFP/src/funcionario/FuncionarioService.dart';
 import 'package:SGFP/src/util/ErrorHandler.dart';
 import 'package:http_server/http_server.dart';
+import 'dart:convert';
 
 class FuncionarioController {
   
@@ -21,13 +22,13 @@ class FuncionarioController {
     switch (this._reqBody.request.method) {
       case 'GET':
         employees = await employeeService.getFuncionarios();
-        _reqBody.request.response.write( employees.map((f) => f.toJson()) );
+        _reqBody.request.response.write(jsonEncode(employees));
         await close(_reqBody);
         break;
       case 'POST':
         employee = await employeeService.addFuncionario( _reqBody.body  )
             .catchError( (e) => ErrorHandler.onError( e,_reqBody));
-        _reqBody.request.response.write(employee.toJson());
+        _reqBody.request.response.write(jsonEncode(employee));
         await close(_reqBody);
         break;
       case 'PATCH':
@@ -40,7 +41,7 @@ class FuncionarioController {
 
         employee = await employeeService.updateFuncionario( _reqBody.body, id  )
             .catchError( (e) => ErrorHandler.onError( e,_reqBody));
-        _reqBody.request.response.write(employee.toJson());
+        _reqBody.request.response.write(jsonEncode(employee));
         await close(_reqBody);
         break;
       case 'DELETE':
@@ -53,7 +54,7 @@ class FuncionarioController {
 
         employee = await employeeService.deleteFuncionario( id )
             .catchError( (e) => ErrorHandler.onError( e,_reqBody));
-        _reqBody.request.response.write(employee.toJson());
+        _reqBody.request.response.write(jsonEncode(employee));
         await close(_reqBody);
         break;
       default:
