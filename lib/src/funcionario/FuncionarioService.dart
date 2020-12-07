@@ -34,7 +34,8 @@ class FuncionarioService {
     Funcionario update = await findById(id);
 
     if(update != null) {
-      update =  Funcionario.fromJson( await funcionarioDB.update( where.id(ObjectId.parse(id)), json ) );
+      await funcionarioDB.update( where.id(ObjectId.parse(id)), json );
+      update =  await findById(id);
     }
 
     return update;

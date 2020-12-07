@@ -58,7 +58,7 @@ class FuncionarioController {
         await close(_reqBody);
         break;
       default:
-        _reqBody.request.response.statusCode = 405;
+        // _reqBody.request.response.statusCode = 405;
     }
 
     await close(_reqBody);
