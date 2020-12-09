@@ -45,8 +45,9 @@ Demonstrar os conhecimentos de Dart no banco de dados Mongo, utilizando conhecim
   }
 ```
 
-## Licença
+## contribuidores
 
 [Gabriel Lorandi](https://www.linkedin.com/in/gabriel-lorandi/)
+[Jeiferson de Almeida](https://github.com/jeifersonalmeida)
 
  
