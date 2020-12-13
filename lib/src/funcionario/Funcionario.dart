@@ -32,8 +32,8 @@ class Funcionario {
         json['position'] as String,
         json['rg'] as String,
         json['cpf'] as String,
-        json['salary'] as double,
-        json['overtimeValue'] as double,
+        json['salary']+.0 as double,
+        json['overtimeValue']+.0 as double,
     );
   }
 
