@@ -24,6 +24,7 @@ void main() async {
 
     request.response.headers.add('Access-Control-Allow-Origin', '*');
     request.response.headers.add('Access-Control-Allow-Methods', 'POST,GET,DELETE,PUT,PATCH,OPTIONS');
+    request.response.headers.add('Access-Control-Allow-Headers', '*');
 
     FuncionarioController funcionarioController;
     FolhaPagamentoController folhaPagamentoController;
