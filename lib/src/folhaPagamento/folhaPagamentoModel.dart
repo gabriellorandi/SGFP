@@ -1,21 +1,34 @@
 class FolhaPagamento {
 
-  int diasTrabalhados, horasExtras, faltas;
+  int workedDays, overtime, absence;
 
   FolhaPagamento();
 
-  FolhaPagamento.build(this.diasTrabalhados,this.horasExtras,this.faltas);
+  FolhaPagamento.build(this.workedDays,this.overtime,this.absence);
 
   factory FolhaPagamento.fromJson(var json){
+    if(json['folhaPagamento'] == null) return null;
+
+    var folha = json['folhaPagamento'];
+
     return FolhaPagamento.build(
-      json['diasTrabalhados'] as int,
-      json['horasExtras'] as int,
-      json['faltas'] as int
+      folha['workedDays'] as int,
+      folha['overtime'] as int,
+      folha['absence'] as int
     );
   }
 
   @override
   String toString() {
-    return 'FolhaPagamento{diasTrabalhados: $diasTrabalhados, horasExtras: $horasExtras, faltas: $faltas}';
+    return 'FolhaPagamento{workedDays: $workedDays, overtime: $overtime, absence: $absence}';
   }
+
+  Map<String, dynamic> toJson() {
+    return {
+      'workedDays': this.workedDays,
+      'overtime': this.overtime,
+      'absence': this.absence
+    };
+  }
+
 }

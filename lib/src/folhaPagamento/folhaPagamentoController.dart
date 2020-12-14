@@ -2,6 +2,8 @@ import 'package:SGFP/src/folhaPagamento/folhaPagamentoModel.dart';
 import 'package:SGFP/src/folhaPagamento/folhaPagamentoService.dart';
 import 'package:SGFP/src/util/ErrorHandler.dart';
 import 'package:http_server/http_server.dart';
+import 'dart:convert';
+
 
 
 class FolhaPagamentoController  {
@@ -20,8 +22,10 @@ class FolhaPagamentoController  {
     switch (this._reqBody.request.method) {
       case 'GET':
         String idFuncionario = _reqBody.request.uri.queryParameters['idFuncionario'];
-        folhaPagamento = await folhaPagamentoService.calcularFolhaPagamento(idFuncionario);
-        _reqBody.request.response.write(folhaPagamento);
+        var valor = await folhaPagamentoService.calcularFolhaPagamento(idFuncionario);
+        _reqBody.request.response.write(jsonEncode(valor));
+        await close(_reqBody);
+
         break;
       default:
         _reqBody.request.response.statusCode = 405;
@@ -41,9 +45,11 @@ class FolhaPagamentoController  {
         }
 
         folhaPagamento = await folhaPagamentoService.getFolhaPagamento(idFuncionario)
-            .catchError(ErrorHandler.onError((e) => e,_reqBody))
-            .whenComplete(() => close(_reqBody));
-        _reqBody.request.response.write(folhaPagamento);
+            .catchError( (e) => ErrorHandler.onError( e,_reqBody));;
+        _reqBody.request.response.write(jsonEncode(folhaPagamento));
+        await close(_reqBody);
+
+
         break;
       case 'POST':
         String idFuncionario = _reqBody.request.uri.queryParameters['idFuncionario'];
@@ -54,9 +60,10 @@ class FolhaPagamentoController  {
         }
 
         folhaPagamento = await folhaPagamentoService.updateFolhaPagamento( _reqBody.body, idFuncionario  )
-            .catchError(ErrorHandler.onError((e) => e,_reqBody))
-            .whenComplete(() => close(_reqBody));
-        _reqBody.request.response.write(folhaPagamento);
+            .catchError( (e) => ErrorHandler.onError( e,_reqBody));
+        _reqBody.request.response.write(jsonEncode(folhaPagamento));
+        await close(_reqBody);
+
         break;
       case 'PATCH':
         String idFuncionario = _reqBody.request.uri.queryParameters['idFuncionario'];
@@ -67,9 +74,10 @@ class FolhaPagamentoController  {
         }
 
         folhaPagamento = await folhaPagamentoService.updateFolhaPagamento( _reqBody.body, idFuncionario  )
-            .catchError(ErrorHandler.onError((e) => e,_reqBody))
-            .whenComplete(() => close(_reqBody));
-        _reqBody.request.response.write(folhaPagamento);
+            .catchError( (e) => ErrorHandler.onError( e,_reqBody));
+        _reqBody.request.response.write(jsonEncode(folhaPagamento));
+        await close(_reqBody);
+
         break;
       case 'DELETE':
         String idFuncionario = _reqBody.request.uri.queryParameters['idFuncionario'];
@@ -80,9 +88,10 @@ class FolhaPagamentoController  {
         }
 
         folhaPagamento = await folhaPagamentoService.deleteFolhaPagamento( idFuncionario )
-            .catchError(ErrorHandler.onError((e) => e,_reqBody))
-            .whenComplete(() => close(_reqBody));
-        _reqBody.request.response.write(folhaPagamento);
+            .catchError( (e) => ErrorHandler.onError( e,_reqBody));
+        _reqBody.request.response.write(jsonEncode(folhaPagamento));
+        await close(_reqBody);
+
         break;
       default:
         _reqBody.request.response.statusCode = 405;
